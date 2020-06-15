@@ -163,7 +163,6 @@ def check_citations(essay_tuple):
                     )
         finally:
             citations.append(citation)
-            continue
 
     for i in range(len(citations) - 1):
         if citations[i].authors != [] and citations[i + 1].authors != []:
