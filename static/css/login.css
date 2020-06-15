@@ -1,0 +1,65 @@
+.button {
+    border: none;
+    color: #212529;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: table-cell;
+    align: bottom;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    line-height: 20px;
+    height: 60;
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    text-decoration: none;
+    width: 95%;
+}
+.login {
+    background-color: #B7B7B7;
+    border: 3px solid #222422;
+}
+.login:hover {
+    background-color: #222422;
+    border: 3px solid #212529;
+}
+.content {
+    font-family: "Roboto", "Segoe UI", sans-serif;
+    padding-top: 1.5em;
+}
+.box {
+    border: 2px solid #162335;
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    width: 20%;
+    margin-top: -200px;
+    margin-left: 0% !important;
+    min-height: 400px;
+    padding-bottom: 2em;
+}
+.error{
+    color:red;
+    padding-left:4px;
+}
+.button-holder{
+    margin-top:5px;
+    margin-bottom:10px;
+}
+.button2{
+    width:50%;
+}
+.ion-text{
+    font-size:15;
+    width:90%;
+    margin: 3px;
+    padding:4px;
+}
+form{
+    padding-left:6px;
+    width: 100%;
+    display:inline-block;
+}

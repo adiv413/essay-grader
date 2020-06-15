@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/assignment.css' %}"/>
+{% endblock %}
+
+{% block content %}
+    <!------------ Assignment Creation ------------->
+    {% if user.is_authenticated %}
+    <div class="col-md-8 offset-md-2 body">
+
+        <h3>Add an Assignment:</h3>
+        <!-- Assignment Form -->
+        <form action="{% url 'assignment' %}" method="post">
+            {% csrf_token %}
+            <br>
+            {{ form.as_p }}
+
+            <label>Assignment Due Date</label>
+            <!-- Calendar DateTime input -->
+            <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" name="due_date" required id="id_due_date"/>
+                <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                    <div class="input-group-text">
+                        <i class="fa fa-calendar"></i>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="submit">
+                <button type="submit" id="btn" class="btn btn-primary" onclick="interval()" value="{{ next }}">
+                    Add Assignment
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+    {% else %}
+    <h3>You must be logged in to view this page.</h3>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,13 @@
+.detail{
+    padding-top: 2em;
+}
+.author{
+    display: inline-block;
+}
+.date{
+    isplay:inline-block;
+    float: right;
+}
+.error{
+    padding-bottom: 1em;
+}

@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}"/>
+{% endblock %}
+<!------------ Student Index Interface ------------->
+{% block content %}
+    {% if user.is_authenticated and user.student %}
+        <!-- Search Bar -->
+    
+        <div class="wrapper">
+            <div class="search-bar mt-sm-2 mr-2 offset-md-2 col-md-8">
+                <form method="get">
+                    <input type="text" class="form-control" name="q" id="id_q" query="{{ query }}" placeholder="Search for Essay"/>
+                </form>
+            </div>
+        </div>
+
+        <!-- Error Messages -->
+
+        <div class="col-md-8 offset-md-2 index">
+            <h1>Essays</h1>
+            <hr>
+                {% if essays|length == 0 %}
+                    {% if search == False %}
+                        <h3>No essays yet, why don't you submit one?</h3>
+                    {% else %}
+                        <h3>No results based on your search</h3>
+                    {% endif %}
+                {% endif %}
+
+            <!-- All Essays Created by student -->
+
+                {% for essay in essays %}
+                    <h2>
+                        <a href="{% url 'detail' essay.pk%}" class="title">
+                            {{ essay.title }}
+                        </a>
+                        <a class="grade">
+                            {% if essay.graded %}{{essay.grade_numerator}}/{{essay.grade_denominator}}{% endif%}
+                        </a>
+                    </h2>
+                    <!-- Essay Information -->
+                    <h5> Assignment: {{essay.assignment}}</h5>
+                    <h5> By: {{essay.author}}</h5>
+                    <h5> For: {{essay.teacher}}</h5>
+                    <h6> Created on {{ essay.created_on }}
+                        {% if essay.citation_type != "None" %}
+                        <b class="grade">Type: {{essay.citation_type}}</b>
+                        {% endif %}
+                    </h6>
+                    <hr>
+                {% endfor %}
+        </div>
+    {% else %}
+        <div class="col-md-8 offset-md-2 index">
+            <h1 style="padding-bottom: 1%;">Essay Grader</h1>
+            <h5>This website speeds up essay grading by automating the objective parts of essay grading.</h6>
+            <hr>
+            <h3 style="padding-top: 1%; padding-bottom: 1%;">How do I use this?</h3>
+            <h5>Students</h5>
+            <p>If you're a student, log in (logging in with Ion is preferred) and add your teachers that use this website in settings. 
+                Once your teacher has added an assignment, you can submit in essay via the submit portal. 
+                When submitting, you don't have to use the rich text editor if you don't want to; you can 
+                just create in Google Docs or Word and copy and paste it in, and it should keep the formatting 
+                (double check your essay to make sure, though, because it might not keep all of the formatting).
+                You will get notified via email once your teacher has graded your essay, and you can check the status 
+                of your submitted essays from the home page. You can also check for feedback on your essay by clicking on 
+                the essay title, and you will see if your teacher left any comments on your essay.</p>
+            <h5>Teachers</h5>
+            <p>
+                If you're a teacher, log in (logging in with Ion is preferred) and add an assignment, so that your students can start submitting essays. 
+                To grade essays, head over to the Grade tab, where you can see all of the submitted essays for an assignment and grade them.
+                When grading essays, essays can be one of three things: not marked, marked, or graded. 
+            </p> 
+
+            <p>
+                Marking refers to whether or not the essay has been checked by our system for spelling/grammar, plagiarism, and citation checking.
+                After an essay is marked, you will see a plagiarism report above the body of the essay.
+                Plagiarism is determined as a score from 0 to 1 by the <a href="https://en.wikipedia.org/wiki/Jaccard_index" target="_blank" rel="noopener noreferrer">Jaccard Similarity</a> 
+                between the words in two essays, and each essay is compared with all other submitted essays in that assignment. 
+                After marking, each essay's body will also be highlighted with red text where there are any spelling/grammar mistakes,
+                and the citations will be marked for correctness, cross-referenced to ensure that every citation is cited as an 
+                in-text citation, and checked for alphabetical order. When checking citations using the APA format, warnings will 
+                appear with all capitalized words (other than the first word) in the title, as we are currently unable to check if a word should be capitalized 
+                in sentence case due to the extensive Natural Language Processing and computing power required. Note: the marking process is not perfect, and a citation
+                can be falsely marked as incorrect (although this happens rarely), so please check the errors before grading. To mark all of the submitted essays, click the Mark All button at the bottom of the Grade tab. 
+            </p>
+
+            <p>
+                After marking essays, you can manually grade the essays (for subjective factors, such as style, content, etc.) and enter the score 
+                in the top right hand corner of the Grade tab. You can also leave feedback for your students by entering a comment.
+            </p>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="{% static 'js/index.js' %}" language="JavaScript"></script>
+{% endblock %}

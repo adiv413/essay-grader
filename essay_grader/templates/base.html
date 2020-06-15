@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+{% load static %}
+{% if user.dark_mode %}
+<html class="theme-dark" lang="en" id="global">
+{% else %}
+<html class="theme-light" lang="en" id="global">
+{% endif %}
+<head>
+    <tag id="info" user="{{user.email}}" dark_mode="{{user.dark_mode}}"></tag>
+    <title>TJHSST Essay Grader</title>
+
+    <!------------ Online stylesheets and scripts ------------->
+
+    <!-- Bootstrap 4 -->
+    <link crossorigin="anonymous"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+          rel="stylesheet">
+
+    <script crossorigin="anonymous"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+
+    <script crossorigin="anonymous"
+            integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+
+    <script crossorigin="anonymous"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+
+    <!-- Font Awesome -->
+    <link crossorigin="anonymous"
+          href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+          rel="stylesheet">
+
+    <!-- Moment.js -->
+    <script crossorigin="anonymous"
+            integrity="sha256-VBLiveTKyUZMEzJd6z2mhfxIqz3ZATCuVMawPZGzIfA="
+            src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js"></script>
+
+    <!-- Tempus Dominus Bootstrap 4 -->
+    <link crossorigin="anonymous"
+          href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/css/tempusdominus-bootstrap-4.min.css"
+          integrity="sha256-XPTBwC3SBoWHSmKasAk01c08M6sIA5gF5+sRxqak2Qs="
+          rel="stylesheet"/>
+
+    <script crossorigin="anonymous"
+            integrity="sha256-z0oKYg6xiLq3yJGsp/LsY9XykbweQlHl42jHv2XTBz4=" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/js/tempusdominus-bootstrap-4.min.js"></script>
+
+
+    <!-- JQuery + Ajax -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <!------------ Static css files ------------->
+
+    <link href="{% static 'css/base.css' %}" rel="stylesheet" type="text/css">
+    {% block css %}{% endblock css %}
+
+    <!------------ Navigation Bar ------------->
+
+    <nav class="navbar navbar-light bg-light appear navbar-bar" id="navbar" onscroll="scroll">
+
+        <a class="navbar-title" href="http://localhost:8000/home">
+            <h1>
+                Essay Grader
+            </h1>
+        </a>
+        {% if user.is_authenticated %}
+        <!-- Logged in user -->
+        {% if user.student %}
+        <!-- Student User -->
+
+        <a class="navbar-brand navbar-link" href="http://localhost:8000/submit">
+            Submit
+        </a>
+        {% endif %}
+        {% if user.teacher %}
+        <!-- Teacher user -->
+
+        <a class="navbar-brand navbar-link" href="http://localhost:8000/teacher/assignment">
+            Add Assignment
+        </a>
+
+        <a class="navbar-brand navbar-link" href="http://localhost:8000/teacher/home">
+            Grade
+        </a>
+        {% endif %}
+        <a class="navbar-brand navbar-link" href="{% url 'logout' %}">
+            Logout
+        </a>
+
+        <!-- User's Name -->
+
+        <a class="navbar-brand name">
+            You are logged in as {{ user.first_name }} {{ user.last_name }}
+        </a>
+
+        <a class=settings" href="{% url 'settings_info' %}">
+            <img class="gear" id="gear" height="18vh" src="{% static 'img/gear.png' %}" width="18vw"/>
+        </a>
+        {% else %}
+        <a class="navbar-brand" href="{% url 'create' %}" style="position: absolute; right: 10%;">Create Account</a>
+        <a class="navbar-brand" href="{% url 'login' %}">Login</a>
+        {% endif %}
+    </nav>
+    {% block head %}{% endblock head %}
+</head>
+
+<!------------ Body ------------->
+
+<body>
+
+<!-- Page Bodies -->
+
+<div class="contents">
+    {% block content %}
+
+    {% endblock content %}
+</div>
+
+<hr class="invisible">
+
+{% block footer %}
+<!-- Credits Footer -->
+
+   <footer class="navbar-light bg-light appear navbar-bar">
+
+       <a class="navbar-brand authors">
+
+           <h6 style="padding-bottom: 1em;">
+               Created by: Aditya Vasantharao (2023), Chinmay Bhandaru (2023), Karthik Bhargav (2023)
+           </h6>
+       </a>
+
+   </footer>
+
+{% endblock footer %}
+
+</body>
+
+<!------------ Static Scripts ------------->
+
+<script language="javascript" src="{% static 'js/base.js' %}"></script>
+{% block js %}{% endblock js %}
+
+</html>

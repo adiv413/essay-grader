@@ -1,0 +1,12 @@
+.title{
+    display:inline-block;
+}
+.index{
+    padding-top: 2em;
+}
+.message{
+    padding-bottom: 1em;
+}
+.grade{
+    float:right;
+}

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css %}
+<link href="{% static 'css/settings.css' %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block content %}
+<!------------ Change Teachers ------------->
+<div>
+    <!-- Side Menu -->
+    <div class="menu">
+        <a href="{% url 'settings_info' %}" style="text-decoration:none">
+            <div class="option">
+                <span><h5>Your Info</h5></span>
+            </div>
+        </a>
+        <a href="{% url 'settings_teachers' %}" style="text-decoration:none">
+            <div class="option current">
+                <span><h5>Change Teachers</h5></span>
+            </div>
+        </a>
+        <a href="{% url 'settings_password' %}" style="text-decoration:none">
+            <div class="option">
+                <span><h5>Change Password</h5></span>
+            </div>
+        </a>
+    </div>
+    <!-- Form -->
+    <div class="col-md-7 offset-md-3 container form">
+        <h3><b>Change Teachers:</b></h3>
+        <h6 class="error">{{error}}</h6>
+        {% if saved %}<h6 style="color:green;">Saved!</h6>{% endif %}
+        <form action="{% url 'settings_teachers' %}" method="post">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <div class="mg5">
+                <button class="btn btn-primary" id="btn" onclick="interval()" type="form" value="{{ next }}">Submit
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

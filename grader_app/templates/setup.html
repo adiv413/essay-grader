@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css %}
+	<link href="{% static 'css/login.css' %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block content %}
+<!------------ Create User Account ------------->
+<div class="col-md-8 offset-md-2 box bg-light content">
+
+    <h2>
+		<center>
+			Setup
+		</center>
+	</h2>
+
+	<h6 class="error">{% if method == "POST" %}Your account is invalid.{% endif %}</h6>
+
+	<!-- Information Setup -->
+
+	<form action="{% url 'setup' %}" method="post">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<div class="button-holder" >
+			<button type="submit" class="btn btn-primary" onclick="interval()" id="btn" value="{{ next }}">Submit</button>
+		</div>
+	</form>
+
+</div>
+{% endblock %}

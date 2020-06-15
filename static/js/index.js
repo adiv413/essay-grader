@@ -1,0 +1,1 @@
+document.getElementById("id_q").value = document.getElementById("id_q").getAttribute("query");

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/detail.css' %}"/>
+{% endblock %}
+{% block content %}
+    <!------------ Essay Detailed ------------->
+    {% if user.is_authenticated %}
+    <div class="col-md-8 offset-md-2 detail">
+        <h1>Essay</h1>
+        <hr>
+        <!-- Essay Information -->
+        <h2>{{ essay.title }}</h2>
+        <h5> Assignment: {{essay.assignment}}</h5>
+        <h5> By: {{essay.author.get_full_name}} </h5>
+        <h5> For: {{essay.teacher.get_full_name}} </h5>
+        <h6> Created on {{ essay.created_on }}</h6>
+        <p>{{ essay.body | safe | linebreaks}}</p>
+        <hr>
+        <!-- Comments -->
+        {% for comment in comments %}
+            <div class="comment">
+            <h6 class="author">{{comment.author.get_full_name}}</h6>
+            <h6 class="date">{{comment.created_on}}</h6>
+            <p>{{comment.body}}</p>
+            </div>
+        {% endfor %}
+        <!-- Comment Form -->
+        <form action="{% url 'detail' essay.pk%}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button id="btn" onclick="interval()" type="submit" class="btn btn-primary" value="{{ next }}">
+                Comment
+            </button>
+        </form>
+    </div>
+    {% else %}
+        <h4 class="error">You are not logged in. Please log in to submit or view your essays.</h4>
+    {% endif %}
+{% endblock %}

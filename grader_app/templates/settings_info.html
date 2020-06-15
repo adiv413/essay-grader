@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css %}
+<link href="{% static 'css/settings.css' %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block content %}
+<!------------ Change Info ------------->
+<div>
+    <!-- Side Menu -->
+    <div class="menu">
+        <a href="{% url 'settings_info' %}" style="text-decoration:none;">
+            <div class="option current">
+                <span><h5>Your Info</h5></span>
+            </div>
+        </a>
+        {% if user.student %}
+        <a href="{% url 'settings_teachers' %}" style="text-decoration:none">
+            <div class="option">
+                <span><h5 id="H">Change Teachers</h5></span>
+            </div>
+        </a>
+        {% endif %}
+        <a href="{% url 'settings_password' %}" style="text-decoration:none">
+            <div class="option">
+                <span><h5>Change Password</h5></span>
+            </div>
+        </a>
+    </div>
+    <!-- Form -->
+    <div class="col-md-7 offset-md-3 container form">
+        <h3><b>Change Info:</b></h3>
+        <h6 class="error">{{error}}</h6>
+        <form action="{% url 'settings_info' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            {% if not user.logged_with_ion %}
+            <div class="mg5">
+                <button class="btn btn-primary" id="btn" onclick="interval()" type="submit" value="{{ next }}">Submit
+                </button>
+            </div>
+            {% endif %}
+
+        </form>
+        <br>
+        <!-- Dark Mode Switch -->
+        <h3><b>Dark Mode:</b></h3>
+        <label class="switch" id="switch">
+            <input id="slider" onchange="toggleTheme()" type="checkbox">
+            <span class="slider round"></span>
+        </label>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script src="{% static 'js/info.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css %}
+<link href="{% static 'css/teacher.css' %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+{% block content %}
+<!------------ Left Side Scrollable ------------->
+<label id="info" user="{{user.email}}"></label>
+<div class="scrollable a">
+    {% if assignment == "None" %}
+    <h3>{{ error }}</h3>
+    {% else %}
+    <h2 style="display:inline-block;">Assignment</h2>
+    <h5>
+        <!-- Assignment Form -->
+        <select class="form-control" id="assignment" url="{% url 'teacher_graded' 123 %}">
+            <option value="">-SELECT-</option>
+            {% if assignments|length == 0 %}
+            <option value="">No Assignments Made</option>
+            {% else %}
+            {% for assignment in assignments %}
+            <option value="{{assignment.pk}}">{{assignment.assignment_name}}</option>
+            {% endfor %}
+            {% endif %}
+        </select>
+    </h5>
+    {% endif %}
+    <hr>
+    <!-- Not Graded Essays -->
+    <div id="not_graded">
+    </div>
+    <!-- Graded Essays -->
+    <div id="graded">
+    </div>
+</div>
+<!------------ Right Side Scrollable ------------->
+<div class="scrollable b" id="essay_box" thing="{% url 'ajax_load_essay' %}"></div>
+
+<!-- Footer with Options -->
+
+<footer class="navbar-light bg-light appear navbar-bar footer">
+    <div class="option_container">
+        <!-- Switch -->
+        <div class="switch-div">
+            <h5 class="label" id="name_thing">Show Graded</h5>
+            <label class="switch label" id="switch">
+                <input id="slider" onclick="toggleType()" type="checkbox">
+                <span class="slider round"></span>
+            </label>
+        </div>
+    </div>
+    <!-- Button -->
+    <button class="btn btn-primary" id="thingy" onclick="gradeAll()" stuff="{% url 'grade' 123 %}"
+            type="submit" style="position: absolute; left: 50%">Mark All
+    </button>
+</footer>
+{% endblock %}
+{% block js %}
+<script src="{% static 'js/teacher.js' %}"></script>
+{% endblock %}
+
+{% block footer %}
+{% endblock footer %}

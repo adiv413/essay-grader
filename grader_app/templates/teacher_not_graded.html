@@ -1,0 +1,19 @@
+{% if not_graded|length == 0 %}
+<h3>None of your students submitted a new essay for this assignment</h3>
+<hr>
+{% else %}
+{% for essay in not_graded %}
+<a class="essay" href="javascript:showEssay({{essay.pk}})" style="text-decoration: none;">
+    <div class="essay" style="padding:6px;">
+        <h5>{{ essay.title }} {% if not essay.marked %}<label
+                style="color:red; display:inline-block; float: right; font-size:18px;">Not Marked</label>{% else %}
+            <label style="color:green; display:inline-block; float: right; font-size:18px;">Marked</label>{% endif %}
+        </h5>
+        <h6> By: {{essay.author.get_full_name}}</h6>
+        <h6> Created on {{ essay.created_on }}{% if essay.citation_type != "None" %} <label style="float:right;">Type:
+            <b>{{essay.citation_type}}</b> {% endif %}</label></h6>
+    </div>
+</a>
+<hr>
+{% endfor %}
+{% endif %}

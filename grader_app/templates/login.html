@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+<link href="{% static 'css/login.css' %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block content %}
+<!------------ Login Box ------------->
+<div class="col-md-8 offset-md-2 box navbar-light bg-light content" style="min-height: 270px !important;">
+
+    <h2>
+        <center>
+            Login
+        </center>
+    </h2>
+
+    <h6 class="error">
+        {{ error }}
+    </h6>
+    <!-- Login Form -->
+    <form action="{% url 'login' %}" method="post">
+
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <div class="button-holder">
+
+            <center>
+
+                <button class="btn btn-primary button2" id="btn" onclick="interval()" type="submit" value="{{ next }}">
+
+                    Login
+
+                </button>
+
+            </center>
+
+        </div>
+
+    </form>
+
+    <br>
+    <!-- Ion Login -->
+    <center>
+
+        <p class="ion-text">
+            Or, log in with
+            <b>
+                Ion
+            </b>
+        </p>
+
+        <a class="button login ion" href="{{ url }}" id="btn" onclick="interval()" value="login">
+
+            <img alt="" height="40" src="{% static 'img/ion.png' %}" width="40"/>
+
+        </a>
+
+    </center>
+
+</div>
+{% endblock %}

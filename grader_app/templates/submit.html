@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+{% if user.is_authenticated %}
+
+<div class="col-md-8 offset-md-2" style="padding-top: 1em;">
+    <h3>Add an essay:</h3>
+    <h4 id="error"></h4>
+    <form action="submit" data-assignments-url="{% url 'ajax_load_assignments' %}" id="essayForm" method="post"
+          novalidate>
+        {% csrf_token %}
+        {{ form.media }}
+        {{ form.as_p }}
+        <br>
+        <div>
+            <button class="btn btn-primary" id="btn" onclick="interval()" type="submit" value="{{ next }}">
+                Submit
+            </button>
+        </div>
+    </form>
+</div>
+{% else %}
+<h3>You must be logged in to view this page.</h3>
+{% endif %}
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'js/submit.js' %}"></script>
+{% endblock %}

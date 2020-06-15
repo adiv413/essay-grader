@@ -1,0 +1,187 @@
+body{
+  background-color: var(--background) !important;
+  color: var(--font-color);
+}
+*:before,
+*:after {
+box-sizing: inherit;
+}
+.comment{
+    padding: 3px;
+    border-bottom: 1px solid #cccccc;
+}
+.navbar-bar {
+    overflow: hidden;
+    padding-top: 0.5em;
+    background-color: var(--navbar) !important;
+}
+.authors {
+    display:inline-block;
+    vertical-align:middle;
+    font-size: 1.2vw;
+}
+.navbar-title {
+    text-decoration: none;
+    padding-left: 1em;
+    color: var(--color-title) !important;
+    font-size: 2.7vw !important;
+}
+.create{
+    padding-left: 3em;
+}
+.invisible{
+    margin:0px;
+    margin-top:10px;
+    visibility:hidden;
+}
+.name{
+    padding-left: 3em;
+    vertical-align:middle;
+    font-size: 1.2vw;
+    color: var(--font-color) !important;
+}
+.settings{
+    vertical-align:middle;
+    position:relative;
+    top:-3px;
+    padding-left: 2vw;
+}
+.navbar-title:hover {
+    text-decoration: none;
+    color: var(--color-title-hover) !important;
+}
+.navbar-link {
+    vertical-align:middle;
+    font-size: 1.2vw;
+    color: var(--font-color) !important;
+}
+.navbar-link:hover {
+    color: var(--link-hover) !important;
+}
+.theme-light {
+  --color-title: #0071f3;
+  --color-secondary: #fbfbfe;
+  --color-accent: #fd6f53;
+  --font-color: #111111;
+  --link-hover: #575c61;
+  --background: white;
+  --navbar: #f8f9fa;
+  --formfield: #ffff;
+  --form: black;
+  --current: white;
+  --border: #d5d5d5;
+  --color-title-hover: #004792;
+}
+.theme-dark {
+  --color-title: #0071f3;
+  --color-secondary: #2a2c2d;
+  --color-accent: #12cdea;
+  --font-color: #b9b9b9;
+  --link-hover: #8d8c8c;
+  --background: #121212;
+  --navbar: rgba(255, 255, 255, 0.05);
+  --formfield:rgba(255, 255, 255, 0.05);
+  --form: #5d5c5c;
+  --current: rgba(255, 255, 255, 0.11);
+  --border: #2f2d2d;
+  --color-title-hover: #004792;
+}
+.search-bar{
+    max-width: 500px;
+    width: 100%;
+    display: inline-block;
+    height: 20px;
+}
+.wrapper{
+    margin-top: 18px;
+}
+.gear {
+    -webkit-animation-name: spin;
+    -webkit-animation-duration: 4000ms;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: spin;
+    -moz-animation-duration: 4000ms;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+    -ms-animation-name: spin;
+    -ms-animation-duration: 4000ms;
+    -ms-animation-iteration-count: infinite;
+    -ms-animation-timing-function: linear;
+
+    animation-name: spin;
+    animation-duration: 4000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+
+    transition: all 1s;
+}
+@-ms-keyframes spin {
+    from { -ms-transform: rotate(0deg); }
+    to { -ms-transform: rotate(360deg); }
+}
+@-moz-keyframes spin {
+    from { -moz-transform: rotate(0deg); }
+    to { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}
+footer {
+   margin-top: 1em;
+   position: absolute;
+   left:0px;
+   bottom:0px;
+   right: 0px;
+   height:40px;
+   line-height:40px;
+   width:100%;
+   vertical-align: middle;
+   text-align:center;
+}
+body {
+   position: relative;
+   min-height: 100%;
+   margin: 0;
+}
+html {
+   height: 100%;
+   font-size: 100%;
+   box-sizing: border-box;
+}
+.contents {
+margin: 0 auto;
+padding-bottom: 4rem;
+}
+div.scrollable{
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 4px;
+    margin:4px;
+}
+.invert {
+    filter: invert(100%);
+}
+.form-control{
+    @extends form-control;
+    background-color: var(--formfield);
+    color: var(--font-color);
+}
+.form-control:focus{
+    @extends form-control:focus;
+    background-color: var(--formfield) !important;
+    color: var(--font-color)  !important;
+}
+.form-control:hover{
+    background-color: var(--formfield) !important;
+    color: var(--font-color)  !important;
+}

@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css %}
+	<link href="{% static 'css/login.css' %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block content %}
+<!------------ Create User Account ------------->
+<div class="col-md-8 offset-md-2 box bg-light content" style="width: 60% !important; left: 20% !important;">
+    <h2>
+		<center>
+			Create
+		</center>
+	</h2>
+
+	<!-- Errors -->
+
+	<h6 class="error" id="error">{% if method == "POST" %}Your account is invalid.{% endif %}</h6>
+
+	<!-- User Creation Form -->
+	<form action="{% url 'create' %}" method="post" style="width: 45% !important;">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<div class="button-holder" >
+			<button type="submit" class="btn btn-primary" onclick="interval()" id="btn" value="{{ next }}">
+				Submit
+			</button>
+		</div>
+	</form>
+
+	<!-- Checkboxes -->
+	<div style="float: right;display: inline-block; text-align: left; vertical-align: top; width: 45%; font-size: 10;">
+		<info id="imgs" x="{% static 'img/x.png' %}" check="{% static 'img/check.png' %}"></info>
+		<br>
+		<img id="a" src="{% static 'img/x.png' %}" width="10px" height="10px"> Valid Email <br><br>
+		<img id="b" src="{% static 'img/x.png' %}" width="10px" height="10px"> Password is 8 characters in length <br><br>
+		<img id="c" src="{% static 'img/x.png' %}" width="10px" height="10px"> Password contains special character <br><br>
+		<img id="d" src="{% static 'img/x.png' %}" width="10px" height="10px"> Password contains number <br><br>
+		<img id="e" src="{% static 'img/x.png' %}" width="10px" height="10px"> Password contains upper and lower letters<br><br>
+		<img id="f" src="{% static 'img/x.png' %}" width="10px" height="10px"> Passwords match
+	</div>
+
+
+</div>
+<script language="JavaScript">
+	$("#id_email").change(checkEmail());
+	window.setInterval(checkEmail, 600);
+	window.setInterval(checkPassword, 600);
+	function checkEmail() {
+		console.log("Checking Email");
+		var value = document.getElementById("id_email").value;
+		$.ajax({
+			url: "/ajax/User/email",
+			data: {
+			 	'email': value
+			},
+			success: function (data) {
+				if (data.valid){
+			 		document.getElementById("a").src = document.getElementById("imgs").getAttribute("check");
+			 	} else {
+			 		document.getElementById("a").src = document.getElementById("imgs").getAttribute("x");
+			 	}
+		    }
+		});
+	}
+	function checkPassword() {
+		console.log("Checking Password");
+		var password1 = document.getElementById("id_password").value;
+		var password2 = document.getElementById("id_password2").value;
+		$.ajax({
+			url: "/ajax/User/password",
+			data: {
+			 	'password1': password1,
+			 	'password2': password2
+			},
+			success: function (data) {
+				if (data.length){
+			 		document.getElementById("b").src = document.getElementById("imgs").getAttribute("check");
+				} else {
+			 		document.getElementById("b").src = document.getElementById("imgs").getAttribute("x");
+				}
+				if (data.special){
+			 		document.getElementById("c").src = document.getElementById("imgs").getAttribute("check");
+				} else {
+			 		document.getElementById("c").src = document.getElementById("imgs").getAttribute("x");
+				}
+				if (data.number){
+			 		document.getElementById("d").src = document.getElementById("imgs").getAttribute("check");
+				} else {
+			 		document.getElementById("d").src = document.getElementById("imgs").getAttribute("x");
+				}
+				if (data.upandlow){
+			 		document.getElementById("e").src = document.getElementById("imgs").getAttribute("check");
+				} else {
+			 		document.getElementById("e").src = document.getElementById("imgs").getAttribute("x");
+				}
+				if (data.match){
+			 		document.getElementById("f").src = document.getElementById("imgs").getAttribute("check");
+				} else {
+			 		document.getElementById("f").src = document.getElementById("imgs").getAttribute("x");
+				}
+		    }
+		});
+	}
+</script>
+{% endblock %}
