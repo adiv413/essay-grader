@@ -12,7 +12,6 @@ nltk
 django-ckeditor
 pytz
 scikit-learn
-http.client
 urlextract
 strsimpy
 unidecode
