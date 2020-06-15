@@ -2,6 +2,8 @@
 
 A platform to speed up essay grading.
 
+https://essay-grader.sites.tjhsst.edu/
+
 ## Local Setup
 
  * Install RabbitMQ and Erlang
