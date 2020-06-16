@@ -78,9 +78,9 @@ def login(request):
                 if User.objects.filter(email=mail_id).exists():
                     user = auth.authenticate(email=mail_id,
                                              password=profile.get("ion_username") + profile.get("user_type"))
-		    print("sdfsdfe")
+					print("sdfsdfe")
                     if user is not None:
-			print("sdr")
+						print("sdr")
                         auth.login(request, user)
                         user = request.user
                         user.logged_with_ion = True
@@ -89,7 +89,7 @@ def login(request):
 
                 else:
                     if profile.get("ion_username") in admins or profile.get("is_eighth_admin"):
-                        print("1")
+						print("1")
 			new_user = User.objects.create_superuser(email=mail_id,
                                                                  password=profile.get("ion_username") + profile.get(
                                                                      "user_type"))
@@ -101,7 +101,7 @@ def login(request):
                         new_user = User.objects.create_studentuser(email=mail_id,
                                                                    password=profile.get("ion_username") + profile.get(
                                                                        "user_type"))
-		    print("vfvvfd")
+					print("vfvvfd")
                     new_user.logged_with_ion = True
                     new_user.first_name = profile.get("first_name")
                     new_user.middle_name = profile.get("middle_name")
@@ -114,10 +114,10 @@ def login(request):
                     return redirect("home")
 
             except Exception as e:
-		print(e)
+				print(e)
                 args = {"client_id": client_id, "client_secret": client_secret}
                 oauth.refresh_token("https://ion.tjhsst.edu/oauth/token/", **args)
-    print("vvdsqw23q4242423")
+	print("vvdsqw23q4242423")
     return render(request, "login", context)
 
 
