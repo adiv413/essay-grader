@@ -46,7 +46,7 @@ def login(request):
                 user = auth.authenticate(email=mail_id, password=form.cleaned_data["password"])
                 if user is not None:
                     auth.login(request, user)
-                    return redirect("http://localhost:8000/home")
+                    return redirect("home")
             else:
                 form = LoginForm()
                 context['form'] = form
@@ -60,7 +60,7 @@ def login(request):
         form = LoginForm()
         context['form'] = form
         oauth = OAuth2Session(client_id,
-                              redirect_uri="http://localhost:8000/login",
+                              redirect_uri="http://essay-grader.sites.tjhsst.edu/login",
                               scope=["read"])
         authorization_url, state = oauth.authorization_url("https://ion.tjhsst.edu/oauth/authorize/")
         context['url'] = authorization_url
@@ -78,16 +78,19 @@ def login(request):
                 if User.objects.filter(email=mail_id).exists():
                     user = auth.authenticate(email=mail_id,
                                              password=profile.get("ion_username") + profile.get("user_type"))
+		    print("sdfsdfe")
                     if user is not None:
+			print("sdr")
                         auth.login(request, user)
                         user = request.user
                         user.logged_with_ion = True
                         user.save()
-                        return redirect("http://localhost:8000/home")
+                        return redirect("home")
 
                 else:
                     if profile.get("ion_username") in admins or profile.get("is_eighth_admin"):
-                        new_user = User.objects.create_superuser(email=mail_id,
+                        print("1")
+			new_user = User.objects.create_superuser(email=mail_id,
                                                                  password=profile.get("ion_username") + profile.get(
                                                                      "user_type"))
                     elif profile.get("is_teacher"):
@@ -98,6 +101,7 @@ def login(request):
                         new_user = User.objects.create_studentuser(email=mail_id,
                                                                    password=profile.get("ion_username") + profile.get(
                                                                        "user_type"))
+		    print("vfvvfd")
                     new_user.logged_with_ion = True
                     new_user.first_name = profile.get("first_name")
                     new_user.middle_name = profile.get("middle_name")
@@ -107,12 +111,14 @@ def login(request):
                     user = auth.authenticate(email=mail_id,
                                              password=profile.get("ion_username") + profile.get("user_type"))
                     auth.login(request, user)
-                    return redirect("http://localhost:8000/home")
+                    return redirect("home")
 
-            except Exception:
+            except Exception as e:
+		print(e)
                 args = {"client_id": client_id, "client_secret": client_secret}
                 oauth.refresh_token("https://ion.tjhsst.edu/oauth/token/", **args)
-    return render(request, "login.html", context)
+    print("vvdsqw23q4242423")
+    return render(request, "login", context)
 
 
 def logout(request):
@@ -168,7 +174,7 @@ def create(request):
                 new_user.save()
                 user = auth.authenticate(email=mail, password=password)
                 auth.login(request, user)
-                return redirect("http://localhost:8000/setup")
+                return redirect("setup")
             else:
                 form = RegisterForm()
                 context['form'] = form
