@@ -2,8 +2,6 @@
 
 A platform to speed up essay grading.
 
-https://essay-grader.sites.tjhsst.edu/
-
 ## Local Setup
  * Note: this requires Python 3.8+
  * Install RabbitMQ and Erlang
@@ -34,7 +32,7 @@ https://essay-grader.sites.tjhsst.edu/
 	  cd Essay-Grader
 	  ```
 
-* Next setup a virtual environment with the virtualenv library(Install it with for)
+* Next setup a virtual environment with the virtualenv library
 	* MacOs/Linux
 		* ```
 		  python3 -m pip install --user virtualenv
@@ -43,7 +41,7 @@ https://essay-grader.sites.tjhsst.edu/
 		* ```
 		  py -m pip install --user virtualenv
 		  ```
-* Go to the directory where you cloned the repository and type
+* Then type
 	* MacOs/Linux
 		* ```
 		  python3 -m venv venv
@@ -65,26 +63,31 @@ https://essay-grader.sites.tjhsst.edu/
 	* ```
 	  pip3 install -r requirements.txt
 	  ```
-* Next, open up a new terminal window (don't close any of the other ones) and run:
+* Next, run:
 	* ```
 	  celery -A essay_grader worker -l info -P eventlet
 	  ```
-	* If you get an error regarding kombu, try running
+	* If you get a syntax error which involves kombu, try running
 	  ```
 	  pip uninstall celery
 	  pip install celery
 	  ```
+	  and try running ```celery -A essay_grader worker -l info -P eventlet``` again.
+	  
+* Now, open up a new terminal window (don't close any of the other ones), move into the folder where the repository was cloned, and activate the virtual environment
+
 * At this point, you should have 3 terminal windows open
-* In the empty terminal window, run:
+
+* In the new, empty terminal window, run:
 	* ```
       python manage.py collectstatic
       python manage.py makemigrations
       python manage.py migrate
       python manage.py runserver
 	  ```
-	* And now go to http://127.0.0.1:8000/ to get access!
-* Login via Ion
-* Note: requires Python 3.6+
+	* And now go to http://127.0.0.1:8000/ to see the website!
+	
+* We recommend logging in via Ion
 
 ## Features
 * Profile Management
@@ -96,7 +99,7 @@ https://essay-grader.sites.tjhsst.edu/
 	- [x] Reference list formatting
 	- [x] Citation formatting and style verification (conducted by an extensive home-made algorithm)
 	- [x] Citation cross-referencing
-	- [x] Plagarism Checker
+	- [x] Plagarism checker
 * Interface:
 	* Teacher 
 		- [x] Seeing students essays and being able to grade them

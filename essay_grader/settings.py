@@ -46,8 +46,6 @@ CKEDITOR_CONFIGS = {
     },
 }
 
-ALLOWED_HOSTS = []
-
 AUTH_USER_MODEL = "grader_app.User"
 
 # Application definition

@@ -60,7 +60,7 @@ def login(request):
         form = LoginForm()
         context['form'] = form
         oauth = OAuth2Session(client_id,
-                              redirect_uri="http://essay-grader.sites.tjhsst.edu/login",
+                              redirect_uri="http://localhost:8000/login",
                               scope=["read"])
         authorization_url, state = oauth.authorization_url("https://ion.tjhsst.edu/oauth/authorize/")
         context['url'] = authorization_url
@@ -78,9 +78,7 @@ def login(request):
                 if User.objects.filter(email=mail_id).exists():
                     user = auth.authenticate(email=mail_id,
                                              password=profile.get("ion_username") + profile.get("user_type"))
-					print("sdfsdfe")
                     if user is not None:
-						print("sdr")
                         auth.login(request, user)
                         user = request.user
                         user.logged_with_ion = True
@@ -89,8 +87,7 @@ def login(request):
 
                 else:
                     if profile.get("ion_username") in admins or profile.get("is_eighth_admin"):
-						print("1")
-			new_user = User.objects.create_superuser(email=mail_id,
+                        new_user = User.objects.create_superuser(email=mail_id,
                                                                  password=profile.get("ion_username") + profile.get(
                                                                      "user_type"))
                     elif profile.get("is_teacher"):
@@ -101,7 +98,6 @@ def login(request):
                         new_user = User.objects.create_studentuser(email=mail_id,
                                                                    password=profile.get("ion_username") + profile.get(
                                                                        "user_type"))
-					print("vfvvfd")
                     new_user.logged_with_ion = True
                     new_user.first_name = profile.get("first_name")
                     new_user.middle_name = profile.get("middle_name")
@@ -113,12 +109,10 @@ def login(request):
                     auth.login(request, user)
                     return redirect("home")
 
-            except Exception as e:
-				print(e)
+            except Exception:
                 args = {"client_id": client_id, "client_secret": client_secret}
                 oauth.refresh_token("https://ion.tjhsst.edu/oauth/token/", **args)
-	print("vvdsqw23q4242423")
-    return render(request, "login", context)
+    return render(request, "login.html", context)
 
 
 def logout(request):
@@ -247,6 +241,7 @@ def index(request):
     else:
         return render(request, "index.html")
 
+
 @login_required(login_url="login")
 def submit(request):
     form = EssayForm(request.POST or None, **{'user': request.user})
@@ -351,7 +346,7 @@ def grade(request, pk):  # max 7973 characters/request, <100 requests/day
     if not request.user.teacher:
         return redirect("home")
 
-    essays = Essay.objects.all().filter(assignment=Assignment.objects.get(pk=pk))
+    essays = Essay.objects.all().filter(assignment=Assignment.objects.get(pk=pk), marked=False, graded=False)
     essay_list = []
 
     for i in essays:
@@ -377,6 +372,7 @@ def grade(request, pk):  # max 7973 characters/request, <100 requests/day
         if not essay.marked and essay.citation_type != "None":
             author = essay.author.first_name + " " + essay.author.last_name
             x = essay.id, essay.raw_body, essay.citation_type, author, essay.title
+            print(x)
             essay_tuples.append(x)
 
     ret = grade_all.delay(essay_tuples, essay_list)
@@ -397,26 +393,6 @@ def grade(request, pk):  # max 7973 characters/request, <100 requests/day
     }
 
     return render(request, "grade.html", context)
-
-
-def reformat(body):
-    temp = body.split("\r\n")
-    tempText = "<p>"
-
-    for paragraph in temp:
-        tempText += paragraph + "</p><p>"
-
-    # print("Added para statements", tempText)
-
-    temp = tempText.split("\t")
-    tempText = "&emsp;"
-
-    for tab in temp:
-        tempText += tab + "&emsp;"
-
-    # print("Added tab statements", tempText)
-
-    return tempText + "</p>"
 
 
 @login_required(login_url="login")
@@ -669,6 +645,11 @@ def grade_essay(request, pk):
         essay.grade_denominator = int(request.GET.get('denominator'))
         essay.graded = True
         essay.save()
+        
+        message = """Your essay, %s, has just been graded. Score: %s/%s.""" % (
+                    essay.title, essay.grade_numerator, essay.grade_denominator)
+        send_email(message, "Your essay has been graded", [essay.author.email])
+
     return JsonResponse({})
 
 
@@ -698,7 +679,6 @@ def validate_user_email(request):
             if valid:
                 valid = request.GET.get("email").__contains__(".")
 
-
     return JsonResponse({"valid": valid})
 
 
@@ -724,10 +704,10 @@ def validate_user_password(request):
             upper = True
     upandlow = lower and upper
     data = {
-        "match" : match,
-        "length" : length,
-        "special" : special,
-        "number" : number,
-        "upandlow" : upandlow
+        "match": match,
+        "length": length,
+        "special": special,
+        "number": number,
+        "upandlow": upandlow
     }
     return JsonResponse(data)

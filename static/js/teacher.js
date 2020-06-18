@@ -57,7 +57,9 @@ function showEssay(i) {
 function gradeAll() {
     var i = $("#assignment").val();
     var url = $("#thingy").attr("stuff");
+    console.log(i);
     url = url.replace("123", i);
+    console.log(url);
     $.ajax({
         url: url,
         success: function (data) {

@@ -15,7 +15,7 @@
         <h5> By: {{essay.author.get_full_name}} </h5>
         <h5> For: {{essay.teacher.get_full_name}} </h5>
         <h6> Created on {{ essay.created_on }}</h6>
-        <p>{{ essay.body | safe | linebreaks}}</p>
+        <p>{{ essay.raw_body | safe | linebreaks}}</p>
         <hr>
         <!-- Comments -->
         {% for comment in comments %}

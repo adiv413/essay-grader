@@ -51,8 +51,6 @@ def grade_essay(essay_tuple, essay_list):
     
     plagiarism_ret = check_plagiarism.delay(essay_tuple[3], essay_tuple[4], body, essay_list)
     plagiarism = plagiarism_ret.get()
-        
-    body = body.replace("\n", "<br>&emsp;&emsp;")
 
     result = None
     if len(body) > 6000:
@@ -65,7 +63,8 @@ def grade_essay(essay_tuple, essay_list):
         length = match.replacement_length
 
         edited_body += body[cursor:offset]
-        edited_body += "<mark style=\"background-color:red;\">" + body[offset:(offset + length)] + "</mark>"
+        if body[offset:(offset + length)] != "br" or body[offset:(offset + length)] != "&emsp":
+            edited_body += "<mark style=\"background-color:red;\">" + body[offset:(offset + length)] + "</mark>"
         cursor = offset + length
 
         # if cursor < text length, then add remaining text to new_text
