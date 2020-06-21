@@ -84,7 +84,6 @@ def login(request):
                         user.logged_with_ion = True
                         user.save()
                         return redirect("home")
-                    context['error'] = "bad user id"
 
                 else:
                     if profile.get("ion_username") in admins or profile.get("is_eighth_admin"):
@@ -114,10 +113,6 @@ def login(request):
                 context['error'] = str(e)
                 args = {"client_id": client_id, "client_secret": client_secret}
                 oauth.refresh_token("https://ion.tjhsst.edu/oauth/token/", **args)
-    if 'error' not in context.keys():
-        context['error'] = "bruh"
-    else:
-        context['error'] += " sdfjsdflsdkjf"
     return render(request, "login.html", context)
 
 
