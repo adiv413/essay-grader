@@ -60,7 +60,7 @@ def login(request):
         form = LoginForm()
         context['form'] = form
         oauth = OAuth2Session(client_id,
-                              redirect_uri="http://localhost:8000/login",
+                              redirect_uri="http://essay-grader.sites.tjhsst.edu/login",
                               scope=["read"])
         authorization_url, state = oauth.authorization_url("https://ion.tjhsst.edu/oauth/authorize/")
         context['url'] = authorization_url
