@@ -114,7 +114,7 @@ def login(request):
                 context['error'] = str(e)
                 args = {"client_id": client_id, "client_secret": client_secret}
                 oauth.refresh_token("https://ion.tjhsst.edu/oauth/token/", **args)
-    if context.has_key('error'):
+    if 'error' in context.keys():
         context['error'] = "bruh"
     else:
         context['error'] += " sdfjsdflsdkjf"
