@@ -110,7 +110,7 @@ def login(request):
                     return redirect("home")
 
             except Exception as e:
-                print(e)
+                context['error'] = str(e)
                 args = {"client_id": client_id, "client_secret": client_secret}
                 oauth.refresh_token("https://ion.tjhsst.edu/oauth/token/", **args)
     return render(request, "login.html", context)
