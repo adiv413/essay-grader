@@ -113,6 +113,7 @@ def login(request):
                 context['error'] = str(e)
                 args = {"client_id": client_id, "client_secret": client_secret}
                 oauth.refresh_token("https://ion.tjhsst.edu/oauth/token/", **args)
+    context['error'] = "bruh"
     return render(request, "login.html", context)
 
 
