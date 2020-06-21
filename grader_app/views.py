@@ -27,7 +27,6 @@ from celery.result import ResultBase
 # noinspection PyUnresolvedReferences
 def login(request):
     admins = {"2023avasanth", "2023pbhandar", "2023kbhargav"}
-    f = open("log.txt", "w")
 
     if request.user is not None and request.user.is_authenticated:
         return redirect("home")
@@ -111,10 +110,9 @@ def login(request):
                     return redirect("home")
 
             except Exception as e:
-                f.write(str(e))
+                print(e)
                 args = {"client_id": client_id, "client_secret": client_secret}
                 oauth.refresh_token("https://ion.tjhsst.edu/oauth/token/", **args)
-    f.close()
     return render(request, "login.html", context)
 
 
