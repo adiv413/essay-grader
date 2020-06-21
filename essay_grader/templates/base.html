@@ -61,7 +61,7 @@
 
     <nav class="navbar navbar-light bg-light appear navbar-bar" id="navbar" onscroll="scroll">
 
-        <a class="navbar-title" href="http://localhost:8000/home">
+        <a class="navbar-title" href="{% url 'home' %}">
             <h1>
                 Essay Grader
             </h1>
@@ -71,18 +71,18 @@
         {% if user.student %}
         <!-- Student User -->
 
-        <a class="navbar-brand navbar-link" href="http://localhost:8000/submit">
+        <a class="navbar-brand navbar-link" href="{% url 'submit' %}">
             Submit
         </a>
         {% endif %}
         {% if user.teacher %}
         <!-- Teacher user -->
 
-        <a class="navbar-brand navbar-link" href="http://localhost:8000/teacher/assignment">
+        <a class="navbar-brand navbar-link" href="{% url 'assignment' %}">
             Add Assignment
         </a>
 
-        <a class="navbar-brand navbar-link" href="http://localhost:8000/teacher/home">
+        <a class="navbar-brand navbar-link" href="{% url 'teacher' %}">
             Grade
         </a>
         {% endif %}
