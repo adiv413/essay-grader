@@ -1,4 +1,4 @@
-# Group 5 Understudyathon: Essay Grader
+# TJHSST Essay Grader
 
 A platform to speed up essay grading.
 
