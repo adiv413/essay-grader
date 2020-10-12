@@ -1,6 +1,7 @@
 # TJHSST Essay Grader
 
 A platform to speed up essay grading.
+Created by: Aditya Vasantharao, Praneeth Chinmay Bhandaru, Karthik Bhargav
 
 ## Local Setup
  * Note: this requires Python 3.8+
