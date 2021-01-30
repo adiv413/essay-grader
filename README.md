@@ -25,10 +25,8 @@ Created by: Aditya Vasantharao, Praneeth Chinmay Bhandaru, Karthik Bhargav
 			* **Don't exit out of this terminal or stop this process when running any future commands. Instead, open up a separate terminal window and execute those tasks from there.** Stopping this process will kill the server, so you will have to start it again before running the Django app.
 			* Note: since this command starts the server, you should see a picture of a rabbit in an ASCII-art format (this is RabbitMQ's logo), followed by some text, and finally a line which says "Starting broker"; no loading bars or anything special will pop up.
 
-* Go to a suitable directory and clone the repository with
-	* ```
-  	  git clone git@gitlab.tjhsst.edu:understudyathon-2020/group-5/Essay-Grader.git
-  	  ```
+* Go to a suitable directory and clone the repository
+
 * Move into the folder where the repository was cloned
 	* ```
 	  cd Essay-Grader
