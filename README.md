@@ -4,6 +4,37 @@ A platform to speed up essay grading.
 
 Created by: Aditya Vasantharao, Praneeth Chinmay Bhandaru, Karthik Bhargav
 
+## Features
+* Profile Management
+	- [x] Settings
+		- [x] Add teachers
+		- [x] Change password
+* Essay Checking 
+	- [x] Spelling/Grammar
+	- [x] Reference list formatting
+	- [x] Citation formatting and style verification (conducted by an extensive home-made algorithm)
+	- [x] Citation cross-referencing
+	- [x] Plagarism checker
+* Interface:
+	* Teacher 
+		- [x] Seeing students essays and being able to grade them
+		- [x] Add assignments
+		- [x] Get notified via email when a student adds you as a teacher
+		- [x] Comment system (interact with students)
+	* Student
+		- [x] Submitting essays via a rich text editor
+		- [x] Get notified via email when your assignment is graded and when a new assignment is posted
+* Automation
+	- [x] Essay grading is automated by the use of Celery Workers
+* Frameworks:
+	* Django
+	* Bootstrap
+	* JQuery + AJAX
+* Authentication:
+	- [x] Login via OAuth
+	- [x] Access information via Ion's API
+	- [x] Role Based Access Control
+	
 ## Local Setup
  * Note: this requires Python 3.8+
  * Install RabbitMQ and Erlang
@@ -87,36 +118,4 @@ Created by: Aditya Vasantharao, Praneeth Chinmay Bhandaru, Karthik Bhargav
 	  ```
 	* And now go to http://127.0.0.1:8000/ to see the website!
 	
-* We recommend logging in via Ion
-
-## Features
-* Profile Management
-	- [x] Settings
-		- [x] Add teachers
-		- [x] Change password
-* Essay Checking 
-	- [x] Spelling/Grammar
-	- [x] Reference list formatting
-	- [x] Citation formatting and style verification (conducted by an extensive home-made algorithm)
-	- [x] Citation cross-referencing
-	- [x] Plagarism checker
-* Interface:
-	* Teacher 
-		- [x] Seeing students essays and being able to grade them
-		- [x] Add assignments
-		- [x] Get notified via email when a student adds you as a teacher
-		- [x] Comment system (interact with students)
-	* Student
-		- [x] Submitting essays via a rich text editor
-		- [x] Get notified via email when your assignment is graded and when a new assignment is posted
-* Automation
-	- [x] Essay grading is automated by the use of Celery Workers
-* Frameworks:
-	* Django
-	* Bootstrap
-	* JQuery + AJAX
-* Authentication:
-	- [x] Login via OAuth
-	- [x] Access information via Ion's API
-	- [x] Role Based Access Control
-
+* We recommend logging in via TJHSST's Ion Oauth
