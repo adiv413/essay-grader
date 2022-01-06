@@ -5,7 +5,7 @@ django-oauth-toolkit
 ion_oauth
 django-guardian
 djangorestframework
-celery==3.1.25
+celery==5.2.2
 django-windows-tools
 django-celery
 nltk
